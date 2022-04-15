@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: app-dependencies
+          key: app-dependencies
       - run: npm run test
 workflows:
   react-slingshot-ci:
