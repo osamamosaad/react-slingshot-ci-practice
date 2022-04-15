@@ -11,7 +11,7 @@ jobs:
           command: npm run preinstall
       - run:
           name: build the app
-          command:  npm run setup
+          command:  npm run build
       - save_cache:
           name: Save app dependencies
           key: app-dependencies
