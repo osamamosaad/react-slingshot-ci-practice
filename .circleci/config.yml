@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/node:17.9.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
@@ -11,7 +11,7 @@ jobs:
           command: npm run preinstall
       - run:
           name: build the app
-          command:  npm install
+          command:  npm i
       - save_cache:
           name: Save app dependencies
           key: app-dependencies
@@ -22,7 +22,7 @@ jobs:
           command: npm run lint
   test:
     docker:
-      - image: cimg/node:17.9.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
