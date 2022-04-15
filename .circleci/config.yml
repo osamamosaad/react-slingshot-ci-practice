@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: check node version
+          command: npm run preinstall
+      - run:
           name: build the app
           command:  npm run setup
       - save_cache:
