@@ -1,9 +1,11 @@
 version: 2.1
 
+defaultDocker: &defaultDocker
+  - image: circleci/node:13.8.0
+
 jobs:
   build:
-    docker:
-      - image: circleci/node:13.8.0
+    docker: *defaultDocker
     steps:
       - checkout
       - run:
@@ -21,13 +23,18 @@ jobs:
           name: lint app
           command: npm run lint
   test:
-    docker:
-      - image: circleci/node:13.8.0
+    docker: *defaultDocker
     steps:
       - checkout
       - restore_cache:
           key: app-dependencies
+      - run: npm i
       - run: npm run test
+  analyze:
+    docker: *defaultDocker
+    steps:
+      - checkout
+      - run: npm audit
 workflows:
   react-slingshot-ci:
     jobs:
@@ -35,3 +42,6 @@ workflows:
       - test:
           requires:
             - build
+      - analyze:
+          requires:
+            - test
